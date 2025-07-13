@@ -7,7 +7,7 @@ import StepNavigation from "../components/StepNavigation";
 import RegistrationSummary from "../components/RegistrationSummary";
 import RegistrationSuccess from "../components/RegistrationSuccess";
 import gitexLogo from '../assets/gitex-logo.png';
-
+import bannerImg from '../assets/banner-bg.jpg';
 const BookingPage = () => {
   const { id } = useParams();
   const ticket = tickets.find((t) => t.id === id);
@@ -34,7 +34,7 @@ const BookingPage = () => {
 
   return (
     <>
-      <HeroSection />
+      <HeroSection currentStep={currentStep} />
 
       <div className="min-h-screen bg-[url('/src/assets/image4.png')] bg-cover bg-center bg-no-repeat p-6">
         {/* Step Indicator */}
@@ -71,35 +71,49 @@ const BookingPage = () => {
 
         <div className="bg-white rounded-lg shadow-md p-6 md:flex md:gap-6">
           <div className={`${currentStep < 4 ? "md:w-2/3" : "w-full"}`}>
-            <div className="bg-gradient-to-r from-[#299D3F] to-[#123F22] w-full max-w-[996.05px] h-[98.63px] p-4 rounded-t-md text-white mb-6 mx-auto">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between h-full gap-2">
-                <h2 className="text-xl font-bold">
-                  Registration Information {currentStep}
-                </h2>
-                <div className="bg-white/20 text-sm text-right px-4 py-2 rounded text-white font-semibold">
-                  {ticket.title} - {ticket.price} Incl. 19% VAT
+            {/* Only show header if not step 4 */}
+            {currentStep < 4 && (
+              <div className="bg-gradient-to-r from-[#299D3F] to-[#123F22] w-full h-[98.63px] p-4 rounded-t-md text-white mb-6 mx-auto">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between h-full gap-2">
+                  <h2 className="text-xl font-bold">
+                    Registration Information {currentStep}
+                  </h2>
+                  <div className="bg-white/10 text-sm text-right px-4 py-2 rounded text-white font-light">
+                    {ticket.title} - {ticket.price} Incl. 19% VAT
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {currentStep < 4 ? (
               <>
                 <form className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4 text-sm">
-                  {[
+                  {[ 
                     { label: "First Name *" },
                     { label: "Last Name *" },
                     { label: "Country of Residence *", type: "select" },
                     { label: "Region", type: "select" },
                     { label: "Email Address *", type: "email" },
                     { label: "Confirm Email Address *", type: "email" },
-                    { label: "Nationality" },
+                    { label: "Nationality",type: "select", },
                     {
                       label: "Mobile Number *",
                       type: "custom",
                       content: (
                         <div className="flex gap-2">
-                          <span className="border p-2 rounded bg-gray-100 flex items-center">+234</span>
-                          <input className="border border-gray-300 p-2 rounded w-full" />
+                          <select className="p-2 rounded bg-gray-100 text-sm">
+                            <option value="+234">+234</option>
+                            <option value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+44">+44</option>
+                            <option value="+971">+971</option>
+                            {/* Add more as needed */}
+                          </select>
+                          <input
+                            type="tel"
+                            className="border border-gray-300 p-2 rounded w-full"
+                            placeholder="Enter phone number"
+                          />
                         </div>
                       ),
                     },
@@ -200,9 +214,9 @@ const BookingPage = () => {
           {currentStep < 4 && (
             <div className="md:w-1/3 mt-8 md:mt-0">
               <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                <div className="bg-gradient-to-r from-[#299D3F] to-[#123F22] w-full h-[98.63px] px-6 py-4 text-white text-left ">
+                <div className="bg-gradient-to-r from-[#299D3F] to-[#123F22] w-full h-[98.63px] px-6 py-4 text-white text-left bg-cover bg-left " style={{ backgroundImage: `url(${bannerImg})` }}>
                   <div className="text-xs font-semibold uppercase tracking-wider flex items-center h-full">
-                    <img src={gitexLogo} alt="Gitex" className="h-[30px] w-auto object-contain" />
+                    <img src={gitexLogo} alt="Gitex" className="h-[46px] w-auto object-contain" />
                   </div>
                 </div>
 
@@ -253,6 +267,7 @@ const BookingPage = () => {
 };
 
 export default BookingPage;
+
 
 
 

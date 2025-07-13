@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import bannerImg from "../assets/banner-bg.jpg";
 
 const mockMainCategories = [
   "Global Leaders Forum !NEW (3 Days)",
@@ -13,6 +14,9 @@ const mockSubCategories = [
   "Edge Computing",
   "Cloud Computing",
   "Cognitive Computing",
+  "5G & Networking",
+  "Quantum Computing",
+  "Data Science",
 ];
 
 const SelectSolutionsModal = ({
@@ -30,9 +34,7 @@ const SelectSolutionsModal = ({
 
   const toggleSelection = (item, list, setList) => {
     const isSelected = list.includes(item);
-    const newTotal = isSelected
-      ? totalSelections - 1
-      : totalSelections + 1;
+    const newTotal = isSelected ? totalSelections - 1 : totalSelections + 1;
 
     if (!isSelected && newTotal > 5) {
       setError("You can select a maximum of 5 items in total.");
@@ -64,75 +66,99 @@ const SelectSolutionsModal = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-opacity-60">
-      <div className="bg-white w-full max-w-4xl rounded-lg overflow-hidden">
-        <div className="bg-gradient-to-r from-green-600 to-green-800 text-white px-6 py-4 flex justify-between items-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="bg-white w-[95%] max-w-4xl mx-auto rounded-lg overflow-hidden">
+        {/* Header */}
+        <div
+          className="bg-gradient-to-r from-[#16F25C] to-[#04270F] px-6 py-4 text-white flex justify-between items-center bg-cover bg-left"
+          style={{ backgroundImage: `url(${bannerImg})` }}
+        >
           <h3 className="text-xl font-bold">SELECT SOLUTIONS/PRODUCTS</h3>
-          <button onClick={onClose} className="text-white text-xl font-bold">×</button>
+          <button onClick={onClose} className="text-2xl font-bold hover:opacity-80">
+            ×
+          </button>
         </div>
 
-        <div className="p-6">
+        {/* Body */}
+        <div className="p-6 space-y-4">
+          {/* Search */}
           <input
             type="text"
             placeholder="Try Product/Service"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full border border-gray-300 p-2 rounded mb-4"
+            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-600"
           />
 
-          <p className="text-sm mb-4">
-            I Am Interested In Sourcing The Following Solutions/Products? (Select Top 5) * Please Ensure You Have Chosen At Least One Category In Each Section
+          {/* Info text */}
+          <p className="text-sm text-gray-700">
+            I Am Interested In Sourcing The Following Solutions/Products?
+            <span className="text-xs text-gray-500">
+              (Select Top 5) * Please Ensure You Have  <br /> Chosen At Least One Category In Each Section
+            </span>
           </p>
 
-          {error && (
-            <div className="text-red-600 text-sm mb-4">{error}</div>
-          )}
+          {error && <div className="text-red-600 text-sm">{error}</div>}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            {mockMainCategories
-              .filter((cat) => cat.toLowerCase().includes(search.toLowerCase()))
-              .map((item, idx) => (
-                <label key={idx} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={mainCategories.includes(item)}
-                    onChange={() =>
-                      toggleSelection(item, mainCategories, setMainCategories)
-                    }
-                  />
-                  {item}
-                </label>
-              ))}
-          </div>
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Main Categories */}
+            <div>
+              <div className="space-y-3">
+                {mockMainCategories
+                  .filter((cat) => cat.toLowerCase().includes(search.toLowerCase()))
+                  .slice(0, 6)
+                  .map((item, idx) => (
+                    <label key={idx} className="flex items-center gap-2 text-sm cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={mainCategories.includes(item)}
+                        onChange={() =>
+                          toggleSelection(item, mainCategories, setMainCategories)
+                        }
+                        className="w-4 h-4 accent-green-700"
+                      />
+                      {item}
+                    </label>
+                  ))}
+              </div>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {mockSubCategories
-              .filter((cat) => cat.toLowerCase().includes(search.toLowerCase()))
-              .map((item, idx) => (
-                <label key={idx} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    checked={subCategories.includes(item)}
-                    onChange={() =>
-                      toggleSelection(item, subCategories, setSubCategories)
-                    }
-                  />
-                  {item}
-                </label>
-              ))}
+            {/* Sub Categories */}
+            <div>
+              <div className="space-y-3">
+                {mockSubCategories
+                  .filter((cat) => cat.toLowerCase().includes(search.toLowerCase()))
+                  .slice(0, 6)
+                  .map((item, idx) => (
+                    <label key={idx} className="flex items-center gap-2 text-sm cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={subCategories.includes(item)}
+                        onChange={() =>
+                          toggleSelection(item, subCategories, setSubCategories)
+                        }
+                        className="w-4 h-4 accent-green-700"
+                      />
+                      {item}
+                    </label>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t px-6 py-4 flex justify-end gap-4">
+        {/* Footer */}
+        <div className="px-6 py-4 flex justify-end gap-4 bg-white">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-400 rounded hover:bg-gray-100"
+            className="px-5 py-2 border border-gray-400 text-black rounded hover:bg-gray-100 font-semibold"
           >
             CANCEL
           </button>
           <button
             onClick={handleApply}
-            className="px-6 py-2 bg-green-700 text-white rounded hover:bg-green-800"
+            className="px-6 py-2 bg-green-700 text-white rounded hover:bg-green-800 font-semibold"
           >
             APPLY
           </button>

@@ -34,13 +34,16 @@ const TicketCard = ({
       <div className="absolute right-[-26px] top-1/2 -translate-y-1/2 w-[52px] h-[52px] bg-white rounded-full z-20"></div>
 
 {isExclusive && (
-  <div className="absolute top-0 left-0 w-[160px] h-[180px] z-19 overflow-hidden pointer-events-none">
-    <div className="absolute -top-[40px] -left-[88px] w-[260px] rotate-[-45deg] bg-gradient-to-r from-[#16F25C] to-[#04270F] text-white text-[13px] font-bold uppercase tracking-widest shadow-md flex flex-col items-center justify-center py-2 h-[70px]">
-      <span>BEST</span>
-      <span>SELLER</span>
+  <div className="absolute top-0 left-0 w-[160px] h-[180px] z-20 overflow-hidden pointer-events-none">
+    <div className="absolute -top-[40px] -left-[88px] w-[260px] rotate-[-45deg] bg-gradient-to-b from-[#16F25C] to-[#04270F] shadow-md flex items-center justify-center h-[70px]">
+      <div className="text-[11px] font-bold uppercase tracking-widest text-white leading-tight text-center ml-[-60px] mt-6">
+        <div>BEST</div>
+        <div>SELLER</div>
+      </div>
     </div>
   </div>
 )}
+
 
 
       <div>
@@ -55,12 +58,16 @@ const TicketCard = ({
             }}
           />
           <div className={`absolute inset-0 bg-gradient-to-r ${titleGradient} opacity-80`} />
-          <div className="relative px-6 py-4 z-10">
-            <h3 className="text-lg font-bold uppercase">{title}</h3>
-            <a href="#" className="text-yellow-400 font-semibold text-sm mt-1 inline-block">
-              VIEW DETAILS →
-            </a>
-          </div>
+<div
+  className={`relative px-6 py-4 z-10 ${
+    isExclusive ? 'ml-8 sm:ml-6 md:ml-10' : ''
+  }`}
+>
+  <h3 className="text-lg font-bold uppercase">{title}</h3>
+  <a href="#" className="text-yellow-400 font-semibold text-sm mt-1 inline-block">
+    VIEW DETAILS →
+  </a>
+</div>
         </div>
 
         {/* Description */}
@@ -121,7 +128,7 @@ const TicketCard = ({
 
       {/* Footer */}
       {customFooter ? (
-        <div className="pt-6 w-full flex justify-between items-center gap-2 flex-wrap">
+        <div className="pt-6 w-full border-t flex justify-between items-center gap-2 flex-wrap border-white/20">
           {/* Price section */}
           <div className="flex items-center gap-2">
             <div className="text-[10px] font-semibold text-red-500 line-through">USD 45</div>
@@ -151,7 +158,7 @@ const TicketCard = ({
           </div>
         </div>
       ) : (
-        <div className="flex justify-between items-center pt-6">
+        <div className="flex justify-between border-t items-center pt-6 border-white/20">
           <div>
             <div className="text-lg font-semibold">{price}</div>
             <div className="text-xs text-white/70">INCL. 19% VAT</div>

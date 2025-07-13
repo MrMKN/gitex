@@ -16,26 +16,41 @@ const RegistrationSummary = ({ onPrev, onSubmit }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded shadow-md text-sm mx-auto w-full">
+    <div className="bg-white p-3 md:p-6 rounded shadow-md text-sm mx-auto w-full">
       {/* Header */}
-      <div className="bg-green-700 text-white px-4 py-2 rounded mb-4 font-bold text-lg">
-        Registration Summary
-      </div>
+    <div
+      className="text-white px-6 py-4 rounded mb-4 font-bold text-lg"
+      style={{
+        background: "linear-gradient(to right, #299D3F, #123F22)",
+        width: "100%",
+        maxWidth: "1499px",
+        height: "81px",
+        display: "flex",
+        alignItems: "center"
+      }}
+    >
+      Registration Summary
+    </div>
 
-      {/* Ticket Info */}
-      <div className="mb-4 flex justify-between items-start sm:items-center flex-col sm:flex-row">
-        <div className="font-semibold">PREMIUM TICKET X 2</div>
-        <div className="text-sm text-right sm:text-left mt-2 sm:mt-0">
-          <div className="line-through text-gray-400">FREE 0.16</div>
-          <div className="text-green-700 font-semibold">
-            FREE 0.16{" "}
-            <span className="bg-green-200 text-green-800 text-xs px-1 py-0.5 rounded ml-1">
-              -15%
-            </span>
-          </div>
-          <div className="text-xs text-gray-500">INCL. 19% VAT</div>
-        </div>
-      </div>
+<div className="mb-4 flex justify-between items-center bg-green-50 px-3 py-2 border-l-4 border-green-500 rounded max-h-[61px] overflow-hidden">
+  {/* Ticket Title */}
+  <div className="font-semibold text-xs sm:text-sm lg:text-base truncate w-1/2 sm:w-auto">
+    PREMIUM TICKET X 2
+  </div>
+
+  {/* Price Info */}
+  <div className="flex flex-col sm:items-end text-xs sm:text-sm text-right leading-tight">
+    <div className="line-through text-gray-400 text-[10px] sm:text-xs">FREE 0.16</div>
+    
+    <div className="flex items-center justify-end flex-wrap gap-1 sm:gap-1">
+      <span className="text-green-700 font-semibold text-[11px] sm:text-sm">FREE 0.16</span>
+      <span className="bg-green-600 text-white text-[10px] px-1.5 py-[1px] rounded font-bold">-15%</span>
+      <span className="text-[10px] text-gray-500">INCL. 19% VAT</span>
+    </div>
+  </div>
+</div>
+
+
 
       {/* Promo Code Section */}
       <div className="bg-green-100 border border-green-300 p-4 rounded mb-4">
@@ -61,47 +76,51 @@ const RegistrationSummary = ({ onPrev, onSubmit }) => {
         </div>
 
         {promoApplied && (
-          <div className="mt-4">
-            <p className="text-green-800 font-medium mb-2">
-              Promo code <strong>"{promo}"</strong> applied successfully! Applied to 2 lowest-priced tickets!
-            </p>
+              <div className="mt-4">
+                <p className="text-green-800 font-medium text-sm sm:text-base mb-2">
+                  Promo code <strong>"{promo}"</strong> applied successfully! Applied to 2 lowest-priced tickets!
+                </p>
 
-            <div className="space-y-1 text-gray-800 text-sm bg-white border border-green-200 rounded p-4 relative">
-              <p>
-                Promo code applied:{" "}
-                <span className="text-green-700 font-semibold">{promo}</span>
-              </p>
-              <p>
-                Promo code applied:{" "}
-                <span className="text-green-700">15% (EUR 0.06 incl. VAT)</span>
-              </p>
-              <p>
-                Applied to:{" "}
-                <a href="#" className="text-green-700 underline">
-                  2 lowest-priced tickets
-                </a>
-              </p>
+                <div className="bg-white border border-green-200 rounded p-4 sm:p-5 relative">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="text-gray-800 text-sm space-y-2">
+                      <p>
+                        Promo code applied:{" "}
+                        <span className="text-green-700 font-semibold break-words">{promo}</span>
+                      </p>
+                      <p>
+                        Discount:{" "}
+                        <span className="text-green-700 font-semibold">15% (EUR 0.06 incl. VAT)</span>
+                      </p>
+                      <p>
+                        Applied to:{" "}
+                        <a href="#" className="text-green-700 underline hover:text-green-800">
+                          2 lowest-priced tickets
+                        </a>
+                      </p>
+                    </div>
 
-              <div className="absolute top-4 right-4">
-                <button
-                  onClick={handleRemove}
-                  className="border border-red-600 text-red-600 px-5 py-1 rounded font-semibold hover:bg-red-50 text-sm"
-                >
-                  REMOVE
-                </button>
+                    <div className="sm:mt-0">
+                      <button
+                        onClick={handleRemove}
+                        className="border border-red-600 text-red-600 px-4 py-1 rounded font-medium hover:bg-red-50 text-sm w-full sm:w-auto"
+                      >
+                        REMOVE
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
         )}
       </div>
 
       {/* Student Ticket Info */}
-      <div className="mb-2 flex justify-between items-center">
-        <div className="text-sm">Student Ticket Access On Day 3 Only</div>
-        <div className="text-sm text-right font-medium">
-          EUR 50.40 SUBJECT TO APPROVAL Incl. 19%
-        </div>
-      </div>
+<div className="mb-2 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
+  <div className="text-xs text-left">Student Ticket Access On Day 3 Only</div>
+  <div className="text-xs text-left sm:text-right font-medium">
+    EUR 50.40 SUBJECT TO APPROVAL Incl. 19%
+  </div>
+</div>
 
       {/* Total + Buttons */}
       <div className="flex justify-between items-center mb-6 flex-col sm:flex-row gap-4 sm:gap-0">
