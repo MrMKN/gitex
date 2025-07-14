@@ -29,7 +29,7 @@ export const tickets = [
       'All Conference Tracks',
       'All Masterclasses',
       '3 Days Access to the Show',
-      'Access to Dubai Internet City Lounge'
+      
     ],
     bgImage: bgImage2,
     titleGradient: "from-red-600 to-orange-500",
