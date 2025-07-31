@@ -16,7 +16,7 @@ const RegistrationSummary = ({ onPrev, onSubmit }) => {
   };
 
   return (
-    <div className="bg-white p-3 md:p-6 rounded shadow-md text-sm mx-auto w-full">
+    <div className="bg-white p-3 md:p-6 rounded text-sm mx-auto w-full">
       {/* Header */}
     <div
       className="text-white px-6 py-4 rounded mb-4 font-bold text-lg"

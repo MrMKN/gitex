@@ -1,4 +1,4 @@
-import React from "react";
+import { useTicket } from "../context/TicketContext";
 import defaultBg from "../assets/ticket-bg1.png";
 import titleBg from "../assets/banner-bg.jpg";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,8 @@ const TicketCard = ({
   customFooter = false,
 }) => {
   const navigate = useNavigate();
+  const { ticketQuantities, increase, decrease } = useTicket();
+  const quantity = ticketQuantities[id] || 0;
 
   const handleBuyNow = () => {
     navigate(`/booking/${id}`);
@@ -22,7 +24,7 @@ const TicketCard = ({
 
   return (
     <div
-      className="relative w-full max-w-[502px] h-[428px] rounded-[20px] p-6 text-white overflow-hidden flex flex-col justify-between shadow-xl bg-cover bg-center"
+      className="relative w-full max-w-[502px] h-[428px] rounded-[20px] p-6 text-white overflow-hidden flex flex-col justify-between shadow-xl bg-cover bg-center bg-black"
       style={{
         backgroundImage: `url(${bgImage})`,
       }}
@@ -33,18 +35,17 @@ const TicketCard = ({
       {/* Right Half Circle Notch */}
       <div className="absolute right-[-26px] top-1/2 -translate-y-1/2 w-[52px] h-[52px] bg-white rounded-full z-20"></div>
 
-{isExclusive && (
-  <div className="absolute top-0 left-0 w-[160px] h-[180px] z-20 overflow-hidden pointer-events-none">
-    <div className="absolute -top-[40px] -left-[88px] w-[260px] rotate-[-45deg] bg-gradient-to-b from-[#16F25C] to-[#04270F] shadow-md flex items-center justify-center h-[70px]">
-      <div className="text-[11px] font-bold uppercase tracking-widest text-white leading-tight text-center ml-[-60px] mt-6">
-        <div>BEST</div>
-        <div>SELLER</div>
-      </div>
-    </div>
-  </div>
-)}
-
-
+      {/* Exclusive Ribbon */}
+      {isExclusive && (
+        <div className="absolute top-0 left-0 w-[160px] h-[180px] z-20 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[40px] -left-[88px] w-[260px] rotate-[-45deg] bg-gradient-to-b from-[#16F25C] to-[#04270F] shadow-md flex items-center justify-center h-[70px]">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-white leading-tight text-center ml-[-60px] mt-6">
+              <div>BEST</div>
+              <div>SELLER</div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div>
         {/* Title Header */}
@@ -58,16 +59,16 @@ const TicketCard = ({
             }}
           />
           <div className={`absolute inset-0 bg-gradient-to-r ${titleGradient} opacity-80`} />
-<div
-  className={`relative px-6 py-4 z-10 ${
-    isExclusive ? 'ml-8 sm:ml-6 md:ml-10' : ''
-  }`}
->
-  <h3 className="text-lg font-bold uppercase">{title}</h3>
-  <a href="#" className="text-yellow-400 font-semibold text-sm mt-1 inline-block">
-    VIEW DETAILS →
-  </a>
-</div>
+          <div
+            className={`relative px-6 py-4 z-10 ${
+              isExclusive ? "ml-8 sm:ml-6 md:ml-10" : ""
+            }`}
+          >
+            <h3 className="text-lg font-bold uppercase">{title}</h3>
+            <a href="#" className="text-yellow-400 font-semibold text-sm mt-1 inline-block">
+              VIEW DETAILS →
+            </a>
+          </div>
         </div>
 
         {/* Description */}
@@ -142,16 +143,16 @@ const TicketCard = ({
           <div className="flex items-center rounded-md overflow-hidden h-8">
             <button
               className="bg-black text-white px-2 text-sm font-semibold hover:opacity-80"
-              onClick={() => console.log("Decrease quantity")}
+              onClick={() => decrease(id)}
             >
               −
             </button>
             <div className="bg-white text-black w-10 text-center text-sm font-bold flex items-center justify-center">
-              25
+              {quantity}
             </div>
             <button
               className="bg-black text-white px-2 text-sm font-semibold hover:opacity-80"
-              onClick={() => console.log("Increase quantity")}
+              onClick={() => increase(id)}
             >
               +
             </button>
@@ -176,6 +177,7 @@ const TicketCard = ({
 };
 
 export default TicketCard;
+
 
 
 

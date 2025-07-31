@@ -33,6 +33,7 @@ export const tickets = [
     ],
     bgImage: bgImage2,
     titleGradient: "from-red-600 to-orange-500",
+    customFooter: true,
   },
   {
     id: "3",
@@ -48,6 +49,7 @@ export const tickets = [
     isExclusive: true,
     bgImage: bgImage3,
     titleGradient: "from-green-700 to-emerald-500",
+    customFooter: true,
   },
     {
       id: "4",
@@ -63,6 +65,7 @@ export const tickets = [
     isExclusive: true,
     bgImage: bgImage2,
     titleGradient: "from-red-800 to-red-900",
+    customFooter: true,
   },
     {
       id: "5",
@@ -76,6 +79,7 @@ export const tickets = [
       'Access to Dubai Internet City Lounge'
     ],
     bgImage: bgImage2,
+    customFooter: true,
   },
     {
       id: "6",
@@ -90,6 +94,7 @@ export const tickets = [
     ],
     bgImage: bgImage3,
     titleGradient: "from-blue-800 to-blue-900",
+    customFooter: true,
   },
   
 ];
