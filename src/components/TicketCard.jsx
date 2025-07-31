@@ -164,12 +164,30 @@ const TicketCard = ({
             <div className="text-lg font-semibold">{price}</div>
             <div className="text-xs text-white/70">INCL. 19% VAT</div>
           </div>
-          <button
+          {/* <button
             onClick={handleBuyNow}
             className="bg-white text-black font-bold px-5 py-2 rounded-md hover:bg-gray-200 text-sm"
           >
             BUY NOW
-          </button>
+          </button> */}
+
+                    <div className="flex items-center rounded-md overflow-hidden h-7 border">
+            <button
+              className="bg-black text-white px-2 text-sm font-semibold  h-7hover:opacity-80"
+              onClick={() => decrease(id)}
+            >
+              −
+            </button>
+            <div className="bg-white text-black w-10 text-center text-sm font-bold flex items-center justify-center h-7">
+              {quantity}
+            </div>
+            <button
+              className="bg-black text-white px-2 text-sm font-semibold hover:opacity-80"
+              onClick={() => increase(id)}
+            >
+              +
+            </button>
+          </div>
         </div>
       )}
     </div>
