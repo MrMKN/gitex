@@ -60,6 +60,18 @@ const BookingPage = () => {
           newErrors[field] = "This field is required.";
         }
       });
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    if (
+      formData.email &&
+      formData.confirmEmail &&
+      formData.email !== formData.confirmEmail
+    ) {
+      newErrors.confirmEmail = "Email addresses do not match.";
+    }
 
       if (mainCategories.length === 0) {
         alert("Please select at least one product or service.");
@@ -150,67 +162,88 @@ const BookingPage = () => {
 
             {currentStep < 4 ? (
               <>
-                <form className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4 text-sm">
-                  {[ 
-                    { label: "First Name *", key: "firstName" },
-                    { label: "Last Name *", key: "lastName" },
-                    { label: "Country of Residence *", key: "country", type: "select" },
-                    { label: "Region", key: "region", type: "select" },
-                    { label: "Email Address *", key: "email", type: "email" },
-                    { label: "Confirm Email Address *", key: "confirmEmail", type: "email" },
-                    { label: "Nationality", key: "nationality", type: "select" },
-                    {
-                      label: "Mobile Number *",
-                      key: "mobile",
-                      type: "custom",
-                      content: (
-                        <div className="flex gap-2">
-                          <select
-                            className="p-2 rounded bg-gray-100 text-sm"
-                            onChange={(e) => handleChange("countryCode", e.target.value)}
-                          >
-                            <option value="+234">+234</option>
-                            <option value="+91">+91</option>
-                            <option value="+1">+1</option>
-                            <option value="+44">+44</option>
-                            <option value="+971">+971</option>
-                          </select>
-                          <input
-                            type="tel"
-                            className="border border-gray-300 p-2 rounded w-full"
-                            placeholder="Enter phone number"
-                            onChange={(e) => handleChange("mobile", e.target.value)}
-                          />
-                        </div>
-                      ),
-                    },
-                    { label: "Company Name *", key: "companyName" },
-                    { label: "Job Title *", key: "jobTitle" },
-                    { label: "Company Type *", key: "companyType", type: "select" },
-                    { label: "Industry *", key: "industry", type: "select" },
-                  ].map((field, i) => (
-                    <div key={i}>
-                      <label className="text-[13px] font-semibold mb-1 block">{field.label}</label>
-                      {field.type === "select" ? (
-                        <select className="border border-gray-300 p-2 rounded w-full" onChange={(e) => handleChange(field.key, e.target.value)}>
-                          <option>Please select</option>
-                          {selectOptions[field.key]?.map((option, idx) => (
-                            <option key={idx} value={option}>{option}</option>
-                          ))}
-                        </select>
-                      ) : field.type === "email" ? (
-                        <input className="border border-gray-300 p-2 rounded w-full" type="email" onChange={(e) => handleChange(field.key, e.target.value)} />
-                      ) : field.type === "custom" ? (
-                        field.content
-                      ) : (
-                        <input className="border border-gray-300 p-2 rounded w-full" onChange={(e) => handleChange(field.key, e.target.value)} />
-                      )}
-                      {errors[field.key] && (
-                        <p className="text-red-500 text-xs mt-1">{errors[field.key]}</p>
-                      )}
-                    </div>
-                  ))}
-                </form>
+<form className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4 text-sm">
+  {[
+    { label: "First Name *", key: "firstName" },
+    { label: "Last Name *", key: "lastName" },
+    { label: "Country of Residence *", key: "country", type: "select" },
+    { label: "Region", key: "region", type: "select" },
+    { label: "Email Address *", key: "email", type: "email" },
+    { label: "Confirm Email Address *", key: "confirmEmail", type: "email" },
+    { label: "Nationality", key: "nationality", type: "select" },
+    {
+      label: "Mobile Number *",
+      key: "mobile",
+      type: "custom",
+      content: (
+        <div className="flex gap-2">
+          <select
+            className="p-2 rounded bg-gray-100 text-sm"
+            onChange={(e) => handleChange("countryCode", e.target.value)}
+          >
+            <option value="+234">+234</option>
+            <option value="+91">+91</option>
+            <option value="+1">+1</option>
+            <option value="+44">+44</option>
+            <option value="+971">+971</option>
+          </select>
+          <input
+            type="tel"
+            className="border border-gray-300 p-2 rounded w-full"
+            placeholder="Enter phone number"
+            value={formData["mobile"] || ""}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, ""); // only digits
+              handleChange("mobile", value);
+            }}
+          />
+        </div>
+      ),
+    },
+    { label: "Company Name *", key: "companyName" },
+    { label: "Job Title *", key: "jobTitle" },
+    { label: "Company Type *", key: "companyType", type: "select" },
+    { label: "Industry *", key: "industry", type: "select" },
+  ].map((field, i) => (
+    <div key={i}>
+      <label className="text-[13px] font-semibold mb-1 block">
+        {field.label}
+      </label>
+      {field.type === "select" ? (
+        <select
+          className="border border-gray-300 p-2 rounded w-full"
+          value={formData[field.key] || ""}
+          onChange={(e) => handleChange(field.key, e.target.value)}
+        >
+          <option>Please select</option>
+          {selectOptions[field.key]?.map((option, idx) => (
+            <option key={idx} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      ) : field.type === "email" ? (
+        <input
+          className="border border-gray-300 p-2 rounded w-full"
+          type="email"
+          value={formData[field.key] || ""}
+          onChange={(e) => handleChange(field.key, e.target.value)}
+        />
+      ) : field.type === "custom" ? (
+        field.content
+      ) : (
+        <input
+          className="border border-gray-300 p-2 rounded w-full"
+          value={formData[field.key] || ""}
+          onChange={(e) => handleChange(field.key, e.target.value)}
+        />
+      )}
+      {errors[field.key] && (
+        <p className="text-red-500 text-xs mt-1">{errors[field.key]}</p>
+      )}
+    </div>
+  ))}
+</form>
 
                 <div className="mt-6">
                   <div className="flex items-center justify-between mb-3">

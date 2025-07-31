@@ -140,14 +140,14 @@ const TicketCard = ({
           </div>
 
           {/* Quantity controls */}
-          <div className="flex items-center rounded-md overflow-hidden h-8">
+          <div className="flex items-center rounded-md overflow-hidden h-7 border">
             <button
-              className="bg-black text-white px-2 text-sm font-semibold hover:opacity-80"
+              className="bg-black text-white px-2 text-sm font-semibold  h-7hover:opacity-80"
               onClick={() => decrease(id)}
             >
               −
             </button>
-            <div className="bg-white text-black w-10 text-center text-sm font-bold flex items-center justify-center">
+            <div className="bg-white text-black w-10 text-center text-sm font-bold flex items-center justify-center h-7">
               {quantity}
             </div>
             <button

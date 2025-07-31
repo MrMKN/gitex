@@ -7,11 +7,13 @@ const CheckoutBar = () => {
   const navigate = useNavigate();
   const { ticketQuantities } = useTicket();
 
-  const total = Object.entries(ticketQuantities).reduce((sum, [id, qty]) => {
-    const ticket = tickets.find((t) => t.id === id);
-    const price = ticket?.customFooter ? 32.5 : 0;
-    return sum + price * qty;
-  }, 0).toFixed(2);
+  const total = Object.entries(ticketQuantities)
+    .reduce((sum, [id, qty]) => {
+      const ticket = tickets.find((t) => t.id === id);
+      const price = ticket?.customFooter ? 32.5 : 0;
+      return sum + price * qty;
+    }, 0)
+    .toFixed(2);
 
   const ticketSummary = Object.entries(ticketQuantities)
     .filter(([_, qty]) => qty > 0)
@@ -22,7 +24,12 @@ const CheckoutBar = () => {
     .join(", ");
 
   const handleBuyNow = () => {
-    navigate("/booking/1");
+    const hasTickets = Object.values(ticketQuantities).some((qty) => qty > 0);
+    if (hasTickets) {
+      navigate("/booking/1");
+    } else {
+      alert("Please select at least one ticket before proceeding.");
+    }
   };
 
   return (
@@ -39,7 +46,7 @@ const CheckoutBar = () => {
           <span className="opacity-90 text-xs sm:text-sm">Incl. 19% VAT</span>
         </div>
         <div className="text-xs sm:text-sm text-white/80 cursor-pointer">
-          View Ticket summary: {ticketSummary || "No tickets selected"}
+         {ticketSummary || "No tickets selected"}
         </div>
       </div>
 
