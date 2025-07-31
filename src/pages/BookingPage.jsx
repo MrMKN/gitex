@@ -291,7 +291,7 @@ const BookingPage = () => {
                 <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2 text-sm">
                   {["Global Leaders Forum NEW (5 Days)","GITEX Main Stage","Artificial Intelligence & Robotics (5)","Future Health NEW (2 Days)","Cybersecurity (4 Days)","Digital Cities (1 Day)","Edtech (1 Day)","Energy Transition (1 Day)","Intelligent Connectivity (1 Day)","Digital Finance (1 Day)","Future Mobility (1 Day)"].map((label, idx) => (
                     <label key={idx} className="flex items-center gap-2">
-                      <input type="checkbox" checked={selectedSessions.includes(label)} onChange={() => toggleSession(label)} />
+                      <input type="checkbox" checked={selectedSessions.includes(label)} onChange={() => toggleSession(label)} className="accent-green-600" />
                       {label}
                     </label>
                   ))}

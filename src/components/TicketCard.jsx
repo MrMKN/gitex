@@ -132,8 +132,8 @@ const TicketCard = ({
         <div className="pt-6 w-full border-t flex justify-between items-center gap-2 flex-wrap border-white/20">
           {/* Price section */}
           <div className="flex items-center gap-2">
-            <div className="text-[10px] font-semibold text-red-500 line-through">USD 45</div>
-            <div className="bg-white text-black text-sm font-bold px-2 py-[2px] rounded-md leading-none">
+            <div className="text-[14px] font-semibold text-red-500 line-through">USD 45</div>
+            <div className="bg-black text-white text-sm font-bold px-2 py-[4px] rounded-md leading-none border">
               32.5
             </div>
             <div className="text-white text-xs opacity-60 leading-none">Incl. 20% VAT</div>
