@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTicket } from "../context/TicketContext";
 import { tickets } from "../features/tickets/ticketData"; // adjust path as needed
+import bannerImg from "../assets/banner-bg.jpg";
+
 
 const CheckoutBar = () => {
   const navigate = useNavigate();
@@ -36,28 +38,43 @@ const CheckoutBar = () => {
     <>
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-30 flex items-center justify-center bg-opacity-50 px-4">
-          <div className="bg-white rounded-lg max-w-md w-full p-6 shadow-lg border-4 border-green-600">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">Ticket Summary</h2>
-            {ticketSummaryList.length > 0 ? (
-              <ul className="list-disc list-inside text-gray-700 space-y-1">
-                {ticketSummaryList.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-gray-500">No tickets selected.</p>
-            )}
-            <div className="flex justify-end mt-6">
-              <button
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 bg-green-700 text-white rounded hover:bg-green-800"
-              >
-                Close
-              </button>
-            </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div className="bg-white w-[95%] max-w-md mx-auto rounded-lg overflow-hidden shadow-lg">
+        {/* Header with background image */}
+        <div
+          className="px-6 py-4 text-white flex justify-between items-center bg-cover bg-left"
+          style={{ backgroundImage: `url(${bannerImg})` }}
+        >
+          <h3 className="text-xl font-bold">TICKET SUMMARY</h3>
+          <button onClick={() => setShowModal(false)} className="text-2xl font-bold hover:opacity-80">
+            ×
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="p-6">
+          {ticketSummaryList.length > 0 ? (
+            <ul className="list-disc list-inside text-gray-700 space-y-1">
+              {ticketSummaryList.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-500">No tickets selected.</p>
+          )}
+
+          {/* Footer */}
+          <div className="flex justify-end mt-6">
+            <button
+              onClick={() => setShowModal(false)}
+              className="px-5 py-2 bg-green-700 text-white rounded hover:bg-green-800 font-semibold"
+            >
+              Close
+            </button>
           </div>
         </div>
+      </div>
+    </div>
       )}
 
       {/* Checkout Bar */}
